@@ -664,6 +664,61 @@ async function setupConfigEditors() {
     }
 }
 
+function openConfigEditorOverlay() {
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.inset = "0";
+    overlay.style.background = "var(--color-background, rgba(0,0,0,0.85))";
+    overlay.style.zIndex = "9999";
+    overlay.style.display = "flex";
+    overlay.style.flexDirection = "column";
+
+    const bar = document.createElement("div");
+    bar.className = "widget-content-frame flex items-center justify-between";
+    bar.style.padding = "0.75rem 1rem";
+
+    const title = document.createElement("div");
+    title.className = "size-h3";
+    title.textContent = "Config Editor";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "button";
+    closeBtn.textContent = "Close";
+    closeBtn.addEventListener("click", () => overlay.remove());
+
+    bar.append(title, closeBtn);
+
+    const editorContainer = document.createElement("div");
+    editorContainer.style.flex = "1";
+    editorContainer.style.padding = "1rem";
+    const editorRoot = document.createElement("div");
+    editorRoot.className = "config-editor";
+    editorRoot.innerHTML = `
+        <div class="flex gap-10 margin-block-10">
+            <button class="button" data-load>Load</button>
+            <button class="button button-primary" data-save>Save</button>
+            <div class="size-small text-subdue status" role="status" aria-live="polite"></div>
+        </div>
+        <textarea class="config-editor-textarea" style="width:100%;height:calc(100vh - 8rem);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace;" spellcheck="false"></textarea>
+    `;
+    editorContainer.append(editorRoot);
+
+    overlay.append(bar, editorContainer);
+    document.body.append(overlay);
+
+    import('./config-editor.js').then((mod) => {
+        mod.default(editorRoot);
+    });
+
+    const onKey = (e) => {
+        if (e.key === "Escape") {
+            overlay.remove();
+            document.removeEventListener("keydown", onKey);
+        }
+    };
+    document.addEventListener("keydown", onKey);
+}
+
 function setupTruncatedElementTitles() {
     const elements = document.querySelectorAll(".text-truncate, .single-line-titles .title, .text-truncate-2-lines, .text-truncate-3-lines");
 
@@ -792,6 +847,14 @@ async function setupPage() {
         setTimeout(() => {
             document.body.classList.add("page-columns-transitioned");
         }, 300);
+    }
+
+    const configureTrigger = document.querySelector("[data-open-config-editor]");
+    if (configureTrigger) {
+        configureTrigger.addEventListener("click", (e) => {
+            e.preventDefault();
+            openConfigEditorOverlay();
+        });
     }
 }
 

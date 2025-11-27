@@ -43,6 +43,11 @@
                 </div>
             </div>
             {{ end }}
+            <a class="block self-center" href="#" data-open-config-editor title="Configure">
+                <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.284c.063.378.313.694.66.87.348.176.76.187 1.12.03l1.178-.5a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.3.247-.45.62-.4 1.001.05.382.284.712.62.885l1.17.585c.5.25.74.84.54 1.36l-.9 2.4a1.125 1.125 0 0 1-1.28.71l-1.25-.27a1.125 1.125 0 0 0-1.02.29l-.902.9c-.39.39-1.01.45-1.47.15l-1.09-.69a1.125 1.125 0 0 0-1.17 0l-1.09.69c-.46.3-1.08.24-1.47-.15l-.902-.9a1.125 1.125 0 0 0-1.02-.29l-1.25.27a1.125 1.125 0 0 1-1.28-.71l-.9-2.4c-.2-.52.04-1.11.54-1.36l1.17-.585c.336-.173.57-.503.62-.885.05-.38-.1-.754-.4-1.001l-1.003-.827a1.125 1.125 0 0 1-.26-1.431l1.296-2.247c.26-.45.82-.63 1.28-.49l1.178.5c.36.157.772.146 1.12-.03.347-.176.597-.492.66-.87L9.594 3.94zM12 9.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5z" />
+                </svg>
+            </a>
             {{- if .App.RequiresAuth }}
             <a class="block self-center" href="{{ .App.Config.Server.BaseURL }}/logout" title="Logout">
                 <svg class="logout-button" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
