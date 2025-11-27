@@ -45,7 +45,6 @@ function setupConfigEditor(root) {
 					try {
 						const r = await fetch(`${baseURL}/api/healthz?t=${Date.now()}`, { cache: "no-store" });
 						if (r.ok) {
-							// Reload if we previously saw a failure (server restarted) or after a small grace period
 							if (sawFailure || i >= 2) {
 								location.reload();
 								return;
@@ -58,7 +57,6 @@ function setupConfigEditor(root) {
 					}
 					await new Promise(r => setTimeout(r, 300));
 				}
-				// Fallback reload even if we didn't detect a down period
 				location.reload();
 			};
 			waitForServerAndReload();

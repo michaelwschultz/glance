@@ -692,7 +692,7 @@ function openConfigEditorOverlay() {
     editorContainer.style.flex = "1";
     editorContainer.style.padding = "1rem";
     const editorRoot = document.createElement("div");
-    editorRoot.className = "config-editor";
+    editorRoot.className = "config-codemirror-editor";
     editorRoot.innerHTML = `
         <div class="flex gap-10 margin-block-10">
             <button class="button" data-load>Load</button>
@@ -706,7 +706,7 @@ function openConfigEditorOverlay() {
     overlay.append(bar, editorContainer);
     document.body.append(overlay);
 
-    import('./config-editor.js').then((mod) => {
+    import('./config-codemirror-editor.js').then((mod) => {
         mod.default(editorRoot);
     });
 

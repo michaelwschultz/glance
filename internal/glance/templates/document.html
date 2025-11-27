@@ -2,6 +2,24 @@
 <html lang="en" id="top" data-theme="{{ .Request.Theme.Key }}" data-scheme="{{ if .Request.Theme.Light }}light{{ else }}dark{{ end }}">
 <head>
     {{ block "document-head-before" . }}{{ end }}
+    <script type="importmap">
+    {
+        "imports": {
+            "@codemirror/state": "{{ .App.StaticAssetPath "vendor/codemirror/state.js" }}",
+            "@codemirror/view": "{{ .App.StaticAssetPath "vendor/codemirror/view.js" }}",
+            "@codemirror/commands": "{{ .App.StaticAssetPath "vendor/codemirror/commands.js" }}",
+            "@codemirror/lang-yaml": "{{ .App.StaticAssetPath "vendor/codemirror/lang-yaml.js" }}",
+            "@codemirror/language": "{{ .App.StaticAssetPath "vendor/codemirror/language.js" }}",
+            "@lezer/highlight": "{{ .App.StaticAssetPath "vendor/codemirror/lezer-highlight.js" }}",
+            "@lezer/yaml": "{{ .App.StaticAssetPath "vendor/codemirror/lezer-yaml.js" }}",
+            "@lezer/common": "{{ .App.StaticAssetPath "vendor/codemirror/lezer-common.js" }}",
+            "@lezer/lr": "{{ .App.StaticAssetPath "vendor/codemirror/lezer-lr.js" }}",
+            "style-mod": "{{ .App.StaticAssetPath "vendor/codemirror/style-mod.js" }}",
+            "w3c-keyname": "{{ .App.StaticAssetPath "vendor/codemirror/w3c-keyname.js" }}",
+            "crelt": "{{ .App.StaticAssetPath "vendor/codemirror/crelt.js" }}"
+        }
+    }
+    </script>
     <script>
     if (navigator.platform === 'iPhone') document.documentElement.classList.add('ios');
     const pageData = {
