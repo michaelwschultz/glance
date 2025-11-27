@@ -17,7 +17,7 @@ If you know how to setup an HTTP server and a bit of HTML and CSS you're ready t
 > By default, the extension widget has a cache time of 30 minutes. To avoid having to restart Glance after every extension change you can set the cache time of the widget to 1 second:
 > ```yaml
 > - type: extension
->   url: http://localhost:8081
+>   url: http://localhost:8080
 >   cache: 1s
 > ```
 

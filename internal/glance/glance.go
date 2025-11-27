@@ -31,6 +31,7 @@ type application struct {
 	Version   string
 	CreatedAt time.Time
 	Config    config
+	ConfigPath string
 
 	parsedManifest []byte
 
@@ -440,6 +441,8 @@ func (a *application) server() (func() error, func() error) {
 	mux.HandleFunc("GET /{page}", a.handlePageRequest)
 
 	mux.HandleFunc("GET /api/pages/{page}/content/{$}", a.handlePageContentRequest)
+	mux.HandleFunc("GET /api/config", a.handleConfigGet)
+	mux.HandleFunc("POST /api/config", a.handleConfigPost)
 
 	if !a.Config.Theme.DisablePicker {
 		mux.HandleFunc("POST /api/set-theme/{key}", a.handleThemeChangeRequest)
