@@ -9,7 +9,8 @@ async function loadCodeMirrorOnce() {
 		import(new URL("../vendor/codemirror/commands.js", import.meta.url).toString()),
 		import(new URL("../vendor/codemirror/language.js", import.meta.url).toString()),
 		import(new URL("../vendor/codemirror/lang-yaml.js", import.meta.url).toString()),
-	]).then(([state, view, commands, language, langYaml]) => {
+		import(new URL("../vendor/codemirror/theme-one-dark.js", import.meta.url).toString()),
+	]).then(([state, view, commands, language, langYaml, themeOneDark]) => {
 		return {
 			EditorState: state.EditorState,
 			EditorView: view.EditorView,
@@ -25,6 +26,7 @@ async function loadCodeMirrorOnce() {
 			defaultHighlightStyle: language.defaultHighlightStyle,
 			syntaxHighlighting: language.syntaxHighlighting,
 			yaml: langYaml.yaml,
+			oneDark: themeOneDark.oneDark,
 		};
 	});
 
@@ -144,7 +146,7 @@ function setupCodeMirrorConfigEditor(root) {
 						cm.drawSelection(),
 						cm.history(),
 						cm.keymap.of([...cm.defaultKeymap, ...cm.historyKeymap, cm.indentWithTab]),
-						cm.syntaxHighlighting(cm.defaultHighlightStyle),
+						cm.oneDark,
 						cm.lineWrapping,
 						cm.yaml(),
 						themeFullHeight,

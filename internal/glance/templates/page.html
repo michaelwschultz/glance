@@ -8,14 +8,17 @@
 
 {{ define "navigation-links" }}
 {{ range .App.Config.Pages }}
-<a href="{{ $.App.Config.Server.BaseURL }}/{{ .Slug }}" class="nav-item{{ if eq .Slug $.Page.Slug }} nav-item-current{{ end }}"{{ if eq .Slug $.Page.Slug }} aria-current="page"{{ end }}>{{ .Title }}</a>
+<a href="{{ $.App.Config.Server.BaseURL }}/{{ .Slug }}"
+    class="nav-item{{ if eq .Slug $.Page.Slug }} nav-item-current{{ end }}" {{ if eq .Slug $.Page.Slug }}
+    aria-current="page" {{ end }}>{{ .Title }}</a>
 {{ end }}
 {{ end }}
 
 {{ define "document-body" }}
 <div class="flex flex-column body-content">
     {{ if not .Page.HideDesktopNavigation }}
-    <div class="header-container content-bounds{{ if .Page.DesktopNavigationWidth }} content-bounds-{{ .Page.DesktopNavigationWidth }} {{ end }}">
+    <div
+        class="header-container content-bounds{{ if .Page.DesktopNavigationWidth }} content-bounds-{{ .Page.DesktopNavigationWidth }} {{ end }}">
         <div class="header flex padding-inline-widget widget-content-frame">
             <div class="logo" aria-hidden="true">
                 {{- if .App.Config.Branding.LogoURL }}
@@ -23,9 +26,11 @@
                 {{- else if .App.Config.Branding.LogoText }}
                 {{- .App.Config.Branding.LogoText }}
                 {{- else }}
-                <svg style="max-height: 2rem;" width="100%" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg style="max-height: 2rem;" width="100%" viewBox="0 0 108 108" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <rect fill="var(--color-text-subdue)" width="50" height="108" rx="6.875" />
-                    <path fill="var(--color-primary)" fill-rule="evenodd" clip-rule="evenodd" d="M64.875 0C61.078 0 58 3.07804 58 6.875V43.125C58 46.922 61.078 50 64.875 50H101.125C104.922 50 108 46.922 108 43.125V6.875C108 3.07804 104.922 0 101.125 0H64.875ZM75.7545 11L71.3078 15.6814H85.2233C85.9209 15.6814 86.5835 15.6633 87.2113 15.627C87.839 15.5544 88.3273 15.4093 88.6761 15.1915L70 34.5706L73.4004 38L91.8149 18.7843C91.6056 19.1835 91.4487 19.7097 91.3441 20.3629C91.2743 20.9798 91.2394 21.5968 91.2394 22.2137V37.1835L96 32.2843V11H75.7545Z"/>
+                    <path fill="var(--color-primary)" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M64.875 0C61.078 0 58 3.07804 58 6.875V43.125C58 46.922 61.078 50 64.875 50H101.125C104.922 50 108 46.922 108 43.125V6.875C108 3.07804 104.922 0 101.125 0H64.875ZM75.7545 11L71.3078 15.6814H85.2233C85.9209 15.6814 86.5835 15.6633 87.2113 15.627C87.839 15.5544 88.3273 15.4093 88.6761 15.1915L70 34.5706L73.4004 38L91.8149 18.7843C91.6056 19.1835 91.4487 19.7097 91.3441 20.3629C91.2743 20.9798 91.2394 21.5968 91.2394 22.2137V37.1835L96 32.2843V11H75.7545Z" />
                     <rect fill="var(--color-text-base)" x="58" y="58" width="50" height="50" rx="6.875" />
                 </svg>
                 {{- end }}
@@ -34,7 +39,8 @@
                 {{ template "navigation-links" . }}
             </nav>
             {{ if not .App.Config.Theme.DisablePicker }}
-            <div class="theme-picker self-center" data-popover-type="html" data-popover-position="below" data-popover-show-delay="0">
+            <div class="theme-picker self-center" data-popover-type="html" data-popover-position="below"
+                data-popover-show-delay="0">
                 <div class="current-theme-preview">
                     {{ .Request.Theme.PreviewHTML }}
                 </div>
@@ -43,15 +49,19 @@
                 </div>
             </div>
             {{ end }}
-            <a class="block self-center" href="#" data-open-config-editor title="Configure">
-                <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.284c.063.378.313.694.66.87.348.176.76.187 1.12.03l1.178-.5a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.3.247-.45.62-.4 1.001.05.382.284.712.62.885l1.17.585c.5.25.74.84.54 1.36l-.9 2.4a1.125 1.125 0 0 1-1.28.71l-1.25-.27a1.125 1.125 0 0 0-1.02.29l-.902.9c-.39.39-1.01.45-1.47.15l-1.09-.69a1.125 1.125 0 0 0-1.17 0l-1.09.69c-.46.3-1.08.24-1.47-.15l-.902-.9a1.125 1.125 0 0 0-1.02-.29l-1.25.27a1.125 1.125 0 0 1-1.28-.71l-.9-2.4c-.2-.52.04-1.11.54-1.36l1.17-.585c.336-.173.57-.503.62-.885.05-.38-.1-.754-.4-1.001l-1.003-.827a1.125 1.125 0 0 1-.26-1.431l1.296-2.247c.26-.45.82-.63 1.28-.49l1.178.5c.36.157.772.146 1.12-.03.347-.176.597-.492.66-.87L9.594 3.94zM12 9.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5z" />
+            <a class="block self-center" href="{{ .App.Config.Server.BaseURL }}/config" title="Configure">
+                <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
             </a>
             {{- if .App.RequiresAuth }}
             <a class="block self-center" href="{{ .App.Config.Server.BaseURL }}/logout" title="Logout">
-                <svg class="logout-button" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                <svg class="logout-button" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                 </svg>
             </a>
             {{- end }}
@@ -63,9 +73,15 @@
         <div class="mobile-navigation-icons">
             <a class="mobile-navigation-label" href="#top">↑</a>
             {{ range $i, $column := .Page.Columns }}
-            <label class="mobile-navigation-label"><input type="radio" class="mobile-navigation-input" name="column" value="{{ $i }}" autocomplete="off"{{ if eq $i $.Page.PrimaryColumnIndex }} checked{{ end }}><div class="mobile-navigation-pill"></div></label>
+            <label class="mobile-navigation-label"><input type="radio" class="mobile-navigation-input" name="column"
+                    value="{{ $i }}" autocomplete="off" {{ if eq $i $.Page.PrimaryColumnIndex }} checked{{ end }}>
+                <div class="mobile-navigation-pill"></div>
+            </label>
             {{ end }}
-            <label class="mobile-navigation-label"><input type="checkbox" class="mobile-navigation-page-links-input" autocomplete="on"><div class="hamburger-icon"></div></label>
+            <label class="mobile-navigation-label"><input type="checkbox" class="mobile-navigation-page-links-input"
+                    autocomplete="on">
+                <div class="hamburger-icon"></div>
+            </label>
         </div>
 
         <div class="mobile-navigation-page-links hide-scrollbars">
@@ -74,7 +90,9 @@
 
         <div class="mobile-navigation-actions flex flex-column margin-block-10">
             {{ if not .App.Config.Theme.DisablePicker }}
-            <div class="theme-picker flex justify-between items-center" data-popover-type="html" data-popover-position="above" data-popover-show-delay="0" data-popover-hide-delay="100" data-popover-anchor=".current-theme-preview" data-popover-trigger="click">
+            <div class="theme-picker flex justify-between items-center" data-popover-type="html"
+                data-popover-position="above" data-popover-show-delay="0" data-popover-hide-delay="100"
+                data-popover-anchor=".current-theme-preview" data-popover-trigger="click">
                 <div data-popover-html>
                     <div class="theme-choices">
                         {{ .App.Config.Theme.PreviewHTML }}
@@ -90,8 +108,10 @@
                     <div class="current-theme-preview">
                         {{ .Request.Theme.PreviewHTML }}
                     </div>
-                    <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" />
+                    <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" />
                     </svg>
                 </div>
             </div>
@@ -100,8 +120,10 @@
             {{ if .App.RequiresAuth }}
             <a href="{{ .App.Config.Server.BaseURL }}/logout" class="flex justify-between items-center">
                 <div class="size-h3">Logout</div>
-                <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                <svg class="ui-icon" stroke="var(--color-text-subdue)" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                 </svg>
             </a>
             {{ end }}
@@ -109,7 +131,8 @@
     </div>
 
     <div class="content-bounds grow{{ if .Page.Width }} content-bounds-{{ .Page.Width }}{{ end }}">
-        <main class="page{{ if .Page.CenterVertically }} center-vertically{{ end }}" id="page" aria-live="polite" aria-busy="true">
+        <main class="page{{ if .Page.CenterVertically }} center-vertically{{ end }}" id="page" aria-live="polite"
+            aria-busy="true">
             <h1 class="visually-hidden">{{ .Page.Title }}</h1>
             <div class="page-content" id="page-content"></div>
             <div class="page-loading-container">

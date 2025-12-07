@@ -18,9 +18,10 @@ import (
 )
 
 var (
-	pageTemplate        = mustParseTemplate("page.html", "document.html", "footer.html")
-	pageContentTemplate = mustParseTemplate("page-content.html")
-	manifestTemplate    = mustParseTemplate("manifest.json")
+	pageTemplate              = mustParseTemplate("page.html", "document.html", "footer.html")
+	pageContentTemplate       = mustParseTemplate("page-content.html")
+	configPageContentTemplate = mustParseTemplate("config-page-content.html")
+	manifestTemplate          = mustParseTemplate("manifest.json")
 )
 
 const STATIC_ASSETS_CACHE_DURATION = 24 * time.Hour
@@ -367,6 +368,47 @@ func (a *application) handlePageContentRequest(w http.ResponseWriter, r *http.Re
 	w.Write(responseBytes.Bytes())
 }
 
+func (a *application) handleConfigPageRequest(w http.ResponseWriter, r *http.Request) {
+	if a.handleUnauthorizedResponse(w, r, redirectToLogin) {
+		return
+	}
+
+	data := templateData{
+		Page: &page{
+			Slug:  "config",
+			Title: "Configuration",
+		},
+		App: a,
+	}
+	a.populateTemplateRequestData(&data.Request, r)
+
+	var responseBytes bytes.Buffer
+	err := pageTemplate.Execute(&responseBytes, data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	w.Write(responseBytes.Bytes())
+}
+
+func (a *application) handleConfigContentRequest(w http.ResponseWriter, r *http.Request) {
+	if a.handleUnauthorizedResponse(w, r, showUnauthorizedJSON) {
+		return
+	}
+
+	var responseBytes bytes.Buffer
+	err := configPageContentTemplate.Execute(&responseBytes, nil)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	w.Write(responseBytes.Bytes())
+}
+
 func (a *application) addressOfRequest(r *http.Request) string {
 	remoteAddrWithoutPort := func() string {
 		for i := len(r.RemoteAddr) - 1; i >= 0; i-- {
@@ -439,8 +481,10 @@ func (a *application) server() (func() error, func() error) {
 
 	mux.HandleFunc("GET /{$}", a.handlePageRequest)
 	mux.HandleFunc("GET /{page}", a.handlePageRequest)
+	mux.HandleFunc("GET /config", a.handleConfigPageRequest)
 
 	mux.HandleFunc("GET /api/pages/{page}/content/{$}", a.handlePageContentRequest)
+	mux.HandleFunc("GET /api/pages/config/content/{$}", a.handleConfigContentRequest)
 	mux.HandleFunc("GET /api/config", a.handleConfigGet)
 	mux.HandleFunc("POST /api/config", a.handleConfigPost)
 
