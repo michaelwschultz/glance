@@ -26,7 +26,7 @@ var (
 
 const STATIC_ASSETS_CACHE_DURATION = 24 * time.Hour
 
-var reservedPageSlugs = []string{"login", "logout"}
+var reservedPageSlugs = []string{"login", "logout", "config"}
 
 type application struct {
 	Version   string

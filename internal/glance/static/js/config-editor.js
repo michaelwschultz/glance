@@ -14,10 +14,12 @@ function setupConfigEditor(root) {
 		}
 	};
 
+	const defaultHeaders = { "X-Requested-With": "XMLHttpRequest" };
+
 	const load = async () => {
 		setStatus("Loading…");
 		try {
-			const res = await fetch(`${baseURL}/api/config`, { method: "GET" });
+			const res = await fetch(`${baseURL}/api/config`, { method: "GET", headers: defaultHeaders });
 			if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
 			textarea.value = await res.text();
 			setStatus("Loaded");
@@ -31,7 +33,10 @@ function setupConfigEditor(root) {
 		try {
 			const res = await fetch(`${baseURL}/api/config`, {
 				method: "POST",
-				headers: { "Content-Type": "text/plain; charset=utf-8" },
+				headers: {
+					"Content-Type": "text/plain; charset=utf-8",
+					...defaultHeaders,
+				},
 				body: textarea.value,
 			});
 			if (!res.ok) {
