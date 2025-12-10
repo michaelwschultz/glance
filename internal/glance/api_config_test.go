@@ -33,9 +33,21 @@ pages:
               - timezone: America/New_York
                 label: NYC
 `
-	configSlugYAML = `
+	glanceConfigSlugYAML = `
 pages:
   - name: Config
+    slug: glance-config
+    columns:
+      - size: full
+        widgets:
+          - type: clock
+            timezones:
+              - timezone: UTC
+                label: UTC
+`
+	configSlugYAML = `
+pages:
+  - name: Custom
     slug: config
     columns:
       - size: full
@@ -134,13 +146,24 @@ func TestHandleConfigPostSucceeds(t *testing.T) {
 	}
 }
 
-func TestConfigSlugIsReserved(t *testing.T) {
-	cfg, err := newConfigFromYAML([]byte(configSlugYAML))
+func TestGlanceConfigSlugIsReserved(t *testing.T) {
+	cfg, err := newConfigFromYAML([]byte(glanceConfigSlugYAML))
 	if err != nil {
 		t.Fatalf("parsing config: %v", err)
 	}
 
 	if _, err := newApplication(cfg); err == nil {
 		t.Fatal("expected reserved slug error")
+	}
+}
+
+func TestConfigSlugAllowed(t *testing.T) {
+	cfg, err := newConfigFromYAML([]byte(configSlugYAML))
+	if err != nil {
+		t.Fatalf("parsing config: %v", err)
+	}
+
+	if _, err := newApplication(cfg); err != nil {
+		t.Fatalf("config slug should be allowed, got error: %v", err)
 	}
 }
