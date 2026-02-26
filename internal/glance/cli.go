@@ -80,19 +80,15 @@ func parseCliOptions() (*cliOptions, error) {
 			intent = cliIntentDiagnose
 		} else if args[0] == "secret:make" {
 			intent = cliIntentSecretMake
+		} else if args[0] == "mountpoint:info" {
+			intent = cliIntentMountpointInfo
 		} else {
 			return nil, unknownCommandErr
 		}
 	} else if len(args) == 2 {
 		if args[0] == "password:hash" {
 			intent = cliIntentPasswordHash
-		} else {
-			return nil, unknownCommandErr
-		}
-	} else if len(args) == 2 {
-		if args[0] == "mountpoint:info" {
-			intent = cliIntentMountpointInfo
-		} else {
+		}else {
 			return nil, unknownCommandErr
 		}
 	} else {
