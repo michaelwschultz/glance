@@ -664,6 +664,17 @@ async function setupConfigEditors() {
     }
 }
 
+async function setupConfigFormEditors() {
+    const elems = Array.from(document.getElementsByClassName("config-form-editor"));
+    if (elems.length == 0) return;
+
+    const mod = await import('./config-form-editor.js');
+
+    for (let i = 0; i < elems.length; i++) {
+        mod.default(elems[i]);
+    }
+}
+
 function setupTruncatedElementTitles() {
     const elements = document.querySelectorAll(".text-truncate, .single-line-titles .title, .text-truncate-2-lines, .text-truncate-3-lines");
 
@@ -769,6 +780,7 @@ async function setupPage() {
         await setupCalendars();
         await setupTodos();
         await setupConfigEditors();
+        await setupConfigFormEditors();
         setupCarousels();
         setupSearchBoxes();
         setupCollapsibleLists();

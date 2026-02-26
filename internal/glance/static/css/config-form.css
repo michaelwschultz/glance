@@ -1,0 +1,709 @@
+.config-form-toolbar .button {
+	padding: 0.6rem 1.2rem;
+	background: none;
+	border: 1px solid var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.config-form-toolbar .button:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-toolbar .button-primary {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.config-form-toolbar .button-primary:hover {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.config-form-mode-toggle .config-form-mode-btn {
+	padding: 0.5rem 1rem;
+	background: none;
+	border: 1px solid var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.config-form-mode-toggle .config-form-mode-btn:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-mode-toggle .config-form-mode-btn.active,
+.config-form-mode-toggle .config-form-mode-btn[aria-pressed="true"] {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.config-form-field {
+	margin-bottom: 1.5rem;
+}
+
+.config-form-field:last-child {
+	margin-bottom: 0;
+}
+
+.config-form-field .form-label {
+	display: block;
+	text-transform: uppercase;
+	margin-bottom: 0.5rem;
+	color: var(--color-text-base);
+	font-size: var(--font-size-h6);
+}
+
+.config-form-field .form-input {
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	transition: border-color 0.2s;
+}
+
+.config-form-field .form-input:hover {
+	border-color: var(--color-progress-border);
+}
+
+.config-form-field .form-input:focus-within {
+	border-color: var(--color-primary);
+	transition-duration: 0.3s;
+}
+
+.config-form-field .form-input input,
+.config-form-field .form-input select,
+.config-form-field .form-input textarea {
+	border: 0;
+	background: none;
+	width: 100%;
+	min-height: 4rem;
+	padding: 0 1rem;
+	font: inherit;
+	outline: none;
+	color: var(--color-text-highlight);
+}
+
+.config-form-field .form-input input[type="number"] {
+	min-height: 4rem;
+}
+
+.config-form-field .form-input textarea {
+	min-height: 8rem;
+	resize: vertical;
+	padding: 1rem;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace;
+	font-size: 1.2rem;
+}
+
+.config-form-field-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.config-form-field-toggle .form-label {
+	margin-bottom: 0;
+}
+
+.toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 4rem;
+	height: 2.2rem;
+	flex-shrink: 0;
+}
+
+.toggle-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.toggle-slider {
+	position: absolute;
+	cursor: pointer;
+	inset: 0;
+	background-color: var(--color-text-subdue);
+	border-radius: 2.2rem;
+	transition: background-color 0.2s;
+}
+
+.toggle-slider::before {
+	content: "";
+	position: absolute;
+	height: 1.6rem;
+	width: 1.6rem;
+	left: 0.3rem;
+	bottom: 0.3rem;
+	background-color: var(--color-widget-background);
+	border-radius: 50%;
+	transition: transform 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+	background-color: var(--color-primary);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+	transform: translateX(1.8rem);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+/* Page tabs */
+.config-form-pages-tabs {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
+}
+
+.config-form-page-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	flex: 1;
+	min-width: 0;
+}
+
+.config-form-page-tab {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	background: var(--color-background);
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	font-size: 1.3rem;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.config-form-page-tab:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-page-tab.active {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+	background: var(--color-widget-background);
+}
+
+.config-form-page-tab-label {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 12rem;
+}
+
+.config-form-page-tab-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.6rem;
+	height: 1.6rem;
+	padding: 0;
+	background: none;
+	border: 0;
+	border-radius: var(--border-radius);
+	color: var(--color-text-subdue);
+	font-size: 1.6rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: color 0.2s;
+	flex-shrink: 0;
+}
+
+.config-form-page-tab-close:hover {
+	color: var(--color-negative);
+}
+
+.config-form-add-page-btn {
+	flex-shrink: 0;
+}
+
+.config-form-page-panel {
+	display: none;
+}
+
+.config-form-page-panel.active {
+	display: block;
+}
+
+.config-form-page-card {
+	background: var(--color-widget-background);
+	border: 1px solid var(--color-widget-content-border);
+	border-radius: var(--border-radius);
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.config-form-page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1rem;
+	flex-wrap: wrap;
+}
+
+.config-form-page-header-inputs {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex: 1;
+	min-width: 0;
+}
+
+.config-form-page-name-input {
+	flex: 1;
+	min-width: 8rem;
+	padding: 0.4rem 0;
+	border: 0;
+	background: none;
+	font-size: var(--font-size-h5);
+	font-weight: 600;
+	color: var(--color-text-highlight);
+	outline: none;
+	border-bottom: 1px solid transparent;
+	transition: border-color 0.2s;
+}
+
+.config-form-page-name-input:hover,
+.config-form-page-name-input:focus {
+	border-bottom-color: var(--color-separator);
+}
+
+.config-form-page-name-input:focus {
+	border-bottom-color: var(--color-primary);
+}
+
+.config-form-page-name-input::placeholder {
+	color: var(--color-text-subdue);
+	font-weight: 400;
+}
+
+.config-form-page-slug-input {
+	width: 8rem;
+	padding: 0.35rem 0.6rem;
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	background: var(--color-background);
+	font-size: 1.2rem;
+	color: var(--color-text-paragraph);
+	outline: none;
+	transition: border-color 0.2s;
+}
+
+.config-form-page-slug-input:hover {
+	border-color: var(--color-progress-border);
+}
+
+.config-form-page-slug-input:focus {
+	border-color: var(--color-primary);
+}
+
+.config-form-page-slug-input::placeholder {
+	color: var(--color-text-subdue);
+}
+
+.config-form-page-actions {
+	display: flex;
+	gap: 0.5rem;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.config-form-page-card:hover .config-form-page-actions,
+.config-form-page-card:focus-within .config-form-page-actions {
+	opacity: 1;
+}
+
+.config-form-page-actions button {
+	padding: 0.4rem 0.8rem;
+	background: none;
+	border: 1px solid var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	font-size: var(--font-size-h6);
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.config-form-page-actions button:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-page-actions button[data-action="remove"]:hover {
+	border-color: var(--color-negative);
+	color: var(--color-negative);
+}
+
+.config-form-column-card {
+	background: var(--color-background);
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.config-form-column-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.8rem;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.config-form-column-label {
+	font-size: var(--font-size-h6);
+	color: var(--color-text-base);
+}
+
+.config-form-column-actions {
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.config-form-column-card:hover .config-form-column-actions,
+.config-form-column-card:focus-within .config-form-column-actions {
+	opacity: 1;
+}
+
+.config-form-column-actions button {
+	padding: 0.3rem 0.6rem;
+	background: none;
+	border: 1px solid var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.config-form-column-actions button:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-column-actions button[data-action="remove-column"]:hover {
+	border-color: var(--color-negative);
+	color: var(--color-negative);
+}
+
+.config-form-fields-inline {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+	gap: 1rem;
+}
+
+/* Compact page top section */
+.config-form-page-top-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+.config-form-page-top-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.75rem;
+}
+
+.config-form-field-compact {
+	margin-bottom: 0;
+}
+
+.config-form-field-compact .form-label {
+	margin-bottom: 0.35rem;
+	font-size: 1rem;
+}
+
+.config-form-field-compact .form-input input,
+.config-form-field-compact .form-input select {
+	min-height: 4rem;
+	padding: 0 0.75rem;
+}
+
+.config-form-page-toggles {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 1.5rem;
+	align-items: center;
+}
+
+.config-form-toggle-item {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	font-size: 1.2rem;
+	color: var(--color-text-paragraph);
+}
+
+.config-form-page-toggles .toggle-switch {
+	width: 3.2rem;
+	height: 1.8rem;
+}
+
+.config-form-page-toggles .toggle-slider::before {
+	height: 1.2rem;
+	width: 1.2rem;
+	left: 0.25rem;
+	bottom: 0.3rem;
+}
+
+.config-form-page-toggles .toggle-switch input:checked + .toggle-slider::before {
+	transform: translateX(1.4rem);
+}
+
+.config-form-toggle-item input {
+	width: auto;
+	min-height: auto;
+	margin: 0;
+}
+
+@media (max-width: 500px) {
+	.config-form-page-top-row {
+		grid-template-columns: 1fr;
+	}
+}
+
+.config-form-widgets-label {
+	display: block;
+	text-transform: uppercase;
+	margin-bottom: 0.5rem;
+	color: var(--color-text-base);
+	font-size: var(--font-size-h6);
+}
+
+.config-form-widgets-field .config-form-widgets-container {
+	margin-bottom: 1rem;
+}
+
+.config-form-widgets-field .config-form-widget-card {
+	background: var(--color-widget-background);
+}
+
+.config-form-widgets-yaml {
+	width: 100%;
+	min-height: 8rem;
+	padding: 1rem;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace;
+	font-size: 1.2rem;
+	background: var(--color-background);
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	color: var(--color-text-highlight);
+	resize: vertical;
+}
+
+.config-form-widgets-yaml:focus {
+	outline: none;
+	border-color: var(--color-primary);
+}
+
+.config-form-add-column-btn {
+	padding: 0.5rem 1rem;
+	background: none;
+	border: 1px dashed var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-subdue);
+	font: inherit;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+	margin-bottom: 1rem;
+}
+
+.config-form-add-column-btn:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-paragraph);
+}
+
+.config-form-columns {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: var(--widget-gap);
+}
+
+.config-form-columns > .config-form-column-card {
+	flex: 1 1 20rem;
+	min-width: 20rem;
+}
+
+.config-form-column {
+	min-width: 0;
+}
+
+.config-form-column-pages {
+	flex: 1 1 20rem;
+	min-width: 20rem;
+}
+
+.config-form-column-settings {
+	flex: 0 0 22rem;
+	max-width: 26rem;
+}
+
+@media (max-width: 900px) {
+	.config-form-column-pages,
+	.config-form-column-settings {
+		flex: 1 1 100%;
+		min-width: 0;
+		max-width: none;
+	}
+}
+
+.config-form-widget-card {
+	background: var(--color-background);
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.config-form-widget-card-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1rem;
+	flex-wrap: wrap;
+}
+
+.config-form-widget-type-select {
+	flex: 1;
+	min-width: 10rem;
+	padding: 0.5rem 1rem;
+	background: var(--color-widget-background);
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	color: var(--color-text-highlight);
+	font: inherit;
+}
+
+.config-form-widget-card-actions {
+	display: flex;
+	gap: 0.5rem;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.config-form-widget-card:hover .config-form-widget-card-actions,
+.config-form-widget-card:focus-within .config-form-widget-card-actions {
+	opacity: 1;
+}
+
+.config-form-widget-card-actions button {
+	padding: 0.3rem 0.6rem;
+	background: none;
+	border: 1px solid var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.config-form-widget-card-actions button:hover:not(:disabled) {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-widget-form-area {
+	margin-top: 0.5rem;
+}
+
+.config-form-add-widget-btn {
+	padding: 0.5rem 1rem;
+	background: none;
+	border: 1px dashed var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-subdue);
+	font: inherit;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+	margin-top: 0.5rem;
+}
+
+.config-form-add-widget-btn:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-paragraph);
+}
+
+.config-form-array-field {
+	margin-bottom: 1.5rem;
+}
+
+.config-form-array-items {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-bottom: 0.8rem;
+}
+
+.config-form-array-item {
+	background: var(--color-widget-background);
+	border: 1px solid var(--color-separator);
+	border-radius: var(--border-radius);
+	padding: 1rem;
+}
+
+.config-form-array-item-header {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 0.8rem;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.config-form-array-item:hover .config-form-array-item-header,
+.config-form-array-item:focus-within .config-form-array-item-header {
+	opacity: 1;
+}
+
+.config-form-remove-item-btn,
+.config-form-add-item-btn {
+	padding: 0.3rem 0.6rem;
+	background: none;
+	border: 1px solid var(--color-text-subdue);
+	border-radius: var(--border-radius);
+	color: var(--color-text-paragraph);
+	font: inherit;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.config-form-add-item-btn:hover {
+	border-color: var(--color-progress-border);
+	color: var(--color-text-highlight);
+}
+
+.config-form-remove-item-btn:hover {
+	border-color: var(--color-negative);
+	color: var(--color-negative);
+}

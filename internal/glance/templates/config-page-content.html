@@ -1,9 +1,142 @@
-<div class="config-editor">
-	<div class="flex gap-10 margin-block-10">
-		<button class="button" data-load>Load</button>
-		<button class="button button-primary" data-save>Save</button>
+<div class="config-form-editor" data-base-url="">
+	<div class="config-form-toolbar flex gap-10 margin-block-10 flex-wrap align-center">
+		<div class="config-form-mode-toggle flex gap-5">
+			<button type="button" class="config-form-mode-btn active" data-mode="form" aria-pressed="true">Form</button>
+			<button type="button" class="config-form-mode-btn" data-mode="yaml" aria-pressed="false">YAML</button>
+		</div>
+		<button type="button" class="button" data-load>Load</button>
+		<button type="button" class="button button-primary" data-save>Save</button>
 		<div class="size-small text-subdue status" role="status" aria-live="polite"></div>
 	</div>
-	<textarea class="config-editor-textarea" style="width:100%;height:calc(100vh - 12rem);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace;" spellcheck="false"></textarea>
-</div>
 
+	<div class="config-form-view" data-view="form">
+		<div class="config-form-includes-banner margin-block-10 padding-block-10 padding-inline-15 text-base" data-includes-banner style="display:none;background:var(--color-widget-background);border:1px solid var(--color-widget-content-border);border-radius:var(--border-radius);">
+			This config uses file includes. Some features may require YAML mode.
+		</div>
+
+		<div class="config-form-columns margin-block-10">
+			<div class="config-form-column config-form-column-pages">
+				<div class="config-form-section config-form-section-pages margin-block-10">
+					<div class="config-form-pages-tabs margin-block-10">
+						<div class="config-form-page-tabs" data-page-tabs role="tablist"></div>
+						<button type="button" class="button config-form-add-page-btn" data-add-page>Add page</button>
+					</div>
+					<div class="config-form-pages-panels margin-block-10" data-pages-container>
+						<!-- Page panels rendered by JS -->
+					</div>
+				</div>
+			</div>
+
+			<div class="config-form-column config-form-column-settings">
+				<details class="config-form-section details margin-block-10" open>
+			<summary class="summary size-h4">Server</summary>
+			<div class="config-form-fields margin-block-10">
+				<div class="config-form-field">
+					<label class="form-label" for="config-server-host">Host</label>
+					<div class="form-input">
+						<input type="text" id="config-server-host" data-field="server.host" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-server-port">Port</label>
+					<div class="form-input">
+						<input type="number" id="config-server-port" data-field="server.port" placeholder="8080" min="1" max="65535">
+					</div>
+				</div>
+				<div class="config-form-field config-form-field-toggle">
+					<label class="form-label" for="config-server-proxied">Proxied</label>
+					<label class="toggle-switch">
+						<input type="checkbox" id="config-server-proxied" data-field="server.proxied">
+						<span class="toggle-slider"></span>
+					</label>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-server-assets-path">Assets path</label>
+					<div class="form-input">
+						<input type="text" id="config-server-assets-path" data-field="server.assets-path" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-server-base-url">Base URL</label>
+					<div class="form-input">
+						<input type="text" id="config-server-base-url" data-field="server.base-url" placeholder="">
+					</div>
+				</div>
+			</div>
+		</details>
+
+				<details class="config-form-section details margin-block-10">
+			<summary class="summary size-h4">Theme</summary>
+			<div class="config-form-fields margin-block-10">
+				<div class="config-form-field">
+					<label class="form-label" for="config-theme-custom-css-file">Custom CSS file</label>
+					<div class="form-input">
+						<input type="text" id="config-theme-custom-css-file" data-field="theme.custom-css-file" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field config-form-field-toggle">
+					<label class="form-label" for="config-theme-disable-picker">Disable theme picker</label>
+					<label class="toggle-switch">
+						<input type="checkbox" id="config-theme-disable-picker" data-field="theme.disable-picker">
+						<span class="toggle-slider"></span>
+					</label>
+				</div>
+			</div>
+		</details>
+
+				<details class="config-form-section details margin-block-10">
+			<summary class="summary size-h4">Branding</summary>
+			<div class="config-form-fields margin-block-10">
+				<div class="config-form-field config-form-field-toggle">
+					<label class="form-label" for="config-branding-hide-footer">Hide footer</label>
+					<label class="toggle-switch">
+						<input type="checkbox" id="config-branding-hide-footer" data-field="branding.hide-footer">
+						<span class="toggle-slider"></span>
+					</label>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-branding-logo-text">Logo text</label>
+					<div class="form-input">
+						<input type="text" id="config-branding-logo-text" data-field="branding.logo-text" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-branding-logo-url">Logo URL</label>
+					<div class="form-input">
+						<input type="text" id="config-branding-logo-url" data-field="branding.logo-url" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-branding-favicon-url">Favicon URL</label>
+					<div class="form-input">
+						<input type="text" id="config-branding-favicon-url" data-field="branding.favicon-url" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-branding-app-name">App name</label>
+					<div class="form-input">
+						<input type="text" id="config-branding-app-name" data-field="branding.app-name" placeholder="Glance">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-branding-app-icon-url">App icon URL</label>
+					<div class="form-input">
+						<input type="text" id="config-branding-app-icon-url" data-field="branding.app-icon-url" placeholder="">
+					</div>
+				</div>
+				<div class="config-form-field">
+					<label class="form-label" for="config-branding-app-background-color">App background color</label>
+					<div class="form-input">
+						<input type="text" id="config-branding-app-background-color" data-field="branding.app-background-color" placeholder="">
+					</div>
+				</div>
+			</div>
+		</details>
+			</div>
+		</div>
+	</div>
+
+	<div class="config-form-view config-form-yaml-view" data-view="yaml" style="display:none;">
+		<textarea class="config-editor-textarea" style="width:100%;height:calc(100vh - 12rem);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace;" spellcheck="false" data-yaml-editor></textarea>
+	</div>
+</div>
