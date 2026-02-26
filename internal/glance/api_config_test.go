@@ -167,3 +167,39 @@ func TestConfigSlugAllowed(t *testing.T) {
 		t.Fatalf("config slug should be allowed, got error: %v", err)
 	}
 }
+
+func TestHandleConfigPostRejectsReservedSlug(t *testing.T) {
+	tmpDir := t.TempDir()
+	configPath := filepath.Join(tmpDir, "glance.yml")
+	if err := os.WriteFile(configPath, []byte(validConfigYAML), 0o644); err != nil {
+		t.Fatalf("writing initial config: %v", err)
+	}
+
+	app := &application{
+		ConfigPath: configPath,
+	}
+
+	req := httptest.NewRequest(http.MethodPost, "http://example.com/api/config", strings.NewReader(glanceConfigSlugYAML))
+	req.Header.Set("Content-Type", "text/plain; charset=utf-8")
+	req.Header.Set("X-Requested-With", "XMLHttpRequest")
+	req.Header.Set("Origin", "http://example.com")
+
+	rr := httptest.NewRecorder()
+	app.handleConfigPost(rr, req)
+
+	if rr.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400 for reserved slug, got %d: %s", rr.Code, rr.Body.String())
+	}
+
+	if !strings.Contains(rr.Body.String(), "reserved") {
+		t.Fatalf("expected error message to mention reserved slug, got: %s", rr.Body.String())
+	}
+
+	contents, err := os.ReadFile(configPath)
+	if err != nil {
+		t.Fatalf("reading config file: %v", err)
+	}
+	if string(contents) != validConfigYAML {
+		t.Fatal("config file should not have been modified when validation fails")
+	}
+}

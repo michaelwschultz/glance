@@ -100,7 +100,15 @@ func (a *application) handleConfigPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, err := newConfigFromYAML(composed); err != nil {
+	cfg, err := newConfigFromYAML(composed)
+	if err != nil {
+		os.Remove(tmpPath)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(fmt.Sprintf("validation error: %v", err)))
+		return
+	}
+
+	if _, err := newApplication(cfg); err != nil {
 		os.Remove(tmpPath)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(fmt.Sprintf("validation error: %v", err)))
