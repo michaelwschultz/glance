@@ -126,15 +126,18 @@ function setupConfigFormEditor(root) {
 			}
 		}
 
-		const pageCards = root.querySelectorAll("[data-page-index]");
+		// Build pages from configData (source of truth for which pages exist) with form overlays
+		const sourcePages = configData?.pages || [];
 		cfg.pages = [];
-		for (const card of pageCards) {
-			const idx = parseInt(card.dataset.pageIndex, 10);
-			const pageData = configData?.pages?.[idx];
-			if (card.dataset.include === "true") {
+		const pageCards = pagesContainer.querySelectorAll("[data-page-index]");
+		for (let i = 0; i < sourcePages.length; i++) {
+			const card = pageCards[i];
+			const pageData = sourcePages[i];
+			if (!card) continue; // DOM may be out of sync, skip
+			if (isIncludeItem(pageData)) {
 				const pathInput = card.querySelector("[data-include-path]");
 				const path = pathInput?.value?.trim() || "";
-				const key = pageData && "!include" in pageData ? "!include" : "$include";
+				const key = "!include" in pageData ? "!include" : "$include";
 				cfg.pages.push({ [key]: path });
 				continue;
 			}
@@ -146,9 +149,6 @@ function setupConfigFormEditor(root) {
 			const hideNavInput = card.querySelector('[data-page-field="hide-desktop-navigation"]');
 			const centerInput = card.querySelector('[data-page-field="center-vertically"]');
 
-			const pageSrc = configData?.pages?.[idx];
-			const headWidgets = Array.isArray(pageSrc?.["head-widgets"]) ? pageSrc["head-widgets"] : [];
-
 			const page = {
 				name: nameInput?.value?.trim() || "Page",
 				slug: slugInput?.value?.trim() || "",
@@ -157,7 +157,7 @@ function setupConfigFormEditor(root) {
 				"show-mobile-header": showMobileInput?.checked ?? true,
 				"hide-desktop-navigation": hideNavInput?.checked ?? false,
 				"center-vertically": centerInput?.checked ?? false,
-				"head-widgets": headWidgets,
+				"head-widgets": Array.isArray(pageData?.["head-widgets"]) ? pageData["head-widgets"] : [],
 				columns: [],
 			};
 
@@ -169,9 +169,8 @@ function setupConfigFormEditor(root) {
 					size: sizeSelect?.value || "full",
 					widgets: [],
 				};
-				const pageSrc = configData?.pages?.[idx];
-				if (pageSrc?.columns?.[colIdx]?.widgets) {
-					col.widgets = [...pageSrc.columns[colIdx].widgets];
+				if (pageData?.columns?.[colIdx]?.widgets) {
+					col.widgets = [...pageData.columns[colIdx].widgets];
 				}
 				page.columns.push(col);
 			}
