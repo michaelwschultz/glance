@@ -41,6 +41,7 @@ function setupCodeMirrorConfigEditor(root) {
 	const status = root.querySelector(".status");
 
 	let editorView = null;
+	const defaultHeaders = { "X-Requested-With": "XMLHttpRequest" };
 
 	const setStatus = (text, isError = false) => {
 		status.textContent = text;
@@ -69,7 +70,7 @@ function setupCodeMirrorConfigEditor(root) {
 	const load = async () => {
 		setStatus("Loading…");
 		try {
-			const res = await fetch(`${baseURL}/api/config`, { method: "GET" });
+			const res = await fetch(`${baseURL}/api/config`, { method: "GET", headers: defaultHeaders });
 			if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
 			const text = await res.text();
 			setEditorValue(text);
@@ -84,7 +85,10 @@ function setupCodeMirrorConfigEditor(root) {
 		try {
 			const res = await fetch(`${baseURL}/api/config`, {
 				method: "POST",
-				headers: { "Content-Type": "text/plain; charset=utf-8" },
+				headers: {
+					"Content-Type": "text/plain; charset=utf-8",
+					...defaultHeaders,
+				},
 				body: getEditorValue(),
 			});
 			if (!res.ok) {

@@ -4,14 +4,25 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
-const maxConfigBodySizeBytes = 1 << 20 // 1 MiB
+const (
+	maxConfigBodySizeBytes = 1 << 20 // 1 MiB
+	xRequestedWithHeader   = "X-Requested-With"
+	xRequestedWithValue    = "XMLHttpRequest"
+)
 
 func (a *application) handleConfigGet(w http.ResponseWriter, r *http.Request) {
+	if a.handleUnauthorizedResponse(w, r, showUnauthorizedJSON) {
+		return
+	}
+
 	if a.ConfigPath == "" {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("config path is not set"))
@@ -34,6 +45,14 @@ func (a *application) handleConfigGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *application) handleConfigPost(w http.ResponseWriter, r *http.Request) {
+	if a.handleUnauthorizedResponse(w, r, showUnauthorizedJSON) {
+		return
+	}
+
+	if !a.isSameOriginConfigRequest(w, r) {
+		return
+	}
+
 	if a.ConfigPath == "" {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("config path is not set"))
@@ -106,4 +125,42 @@ func (a *application) handleConfigPost(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+func (a *application) isSameOriginConfigRequest(w http.ResponseWriter, r *http.Request) bool {
+	if r.Header.Get(xRequestedWithHeader) != xRequestedWithValue {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte("missing X-Requested-With header"))
+		return false
+	}
 
+	origin := r.Header.Get("Origin")
+	if origin == "" {
+		// Some user agents omit Origin for same-origin requests. Allow it.
+		return true
+	}
+
+	u, err := url.Parse(origin)
+	if err != nil || u.Host == "" {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte("invalid Origin header"))
+		return false
+	}
+
+	if !hostsMatch(u.Host, r.Host) {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte("origin mismatch"))
+		return false
+	}
+
+	return true
+}
+
+func hostsMatch(originHost, requestHost string) bool {
+	return strings.EqualFold(stripPort(originHost), stripPort(requestHost))
+}
+
+func stripPort(host string) string {
+	if parsedHost, _, err := net.SplitHostPort(host); err == nil {
+		return parsedHost
+	}
+	return host
+}

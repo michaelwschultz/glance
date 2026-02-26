@@ -26,7 +26,7 @@ var (
 
 const STATIC_ASSETS_CACHE_DURATION = 24 * time.Hour
 
-var reservedPageSlugs = []string{"login", "logout"}
+var reservedPageSlugs = []string{"login", "logout", "glance-config"}
 
 type application struct {
 	Version   string
@@ -375,7 +375,7 @@ func (a *application) handleConfigPageRequest(w http.ResponseWriter, r *http.Req
 
 	data := templateData{
 		Page: &page{
-			Slug:  "config",
+			Slug:  "glance-config",
 			Title: "Configuration",
 		},
 		App: a,
@@ -481,10 +481,10 @@ func (a *application) server() (func() error, func() error) {
 
 	mux.HandleFunc("GET /{$}", a.handlePageRequest)
 	mux.HandleFunc("GET /{page}", a.handlePageRequest)
-	mux.HandleFunc("GET /config", a.handleConfigPageRequest)
+	mux.HandleFunc("GET /glance-config", a.handleConfigPageRequest)
 
 	mux.HandleFunc("GET /api/pages/{page}/content/{$}", a.handlePageContentRequest)
-	mux.HandleFunc("GET /api/pages/config/content/{$}", a.handleConfigContentRequest)
+	mux.HandleFunc("GET /api/pages/glance-config/content/{$}", a.handleConfigContentRequest)
 	mux.HandleFunc("GET /api/config", a.handleConfigGet)
 	mux.HandleFunc("POST /api/config", a.handleConfigPost)
 
