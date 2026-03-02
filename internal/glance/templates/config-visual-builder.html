@@ -1,0 +1,43 @@
+<div class="config-visual-builder">
+    <div class="builder-toolbar config-form-toolbar">
+        <button type="button" class="button" data-load>Load</button>
+        <button type="button" class="button button-primary" data-save>Save</button>
+        <div class="builder-toolbar-status status" role="status" aria-live="polite"></div>
+    </div>
+    <aside class="builder-sidebar-left">
+      <div class="sidebar-section">
+        <h3>Global Settings</h3>
+        <ul id="global-nav-list" class="nav-list">
+          <li data-target="server">Server</li>
+          <li data-target="theme">Theme</li>
+          <li data-target="branding">Branding</li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <h3>Widget Library</h3>
+        <div id="widget-library" class="widget-grid">
+          </div>
+      </div>
+    </aside>
+  
+    <main class="builder-canvas">
+      <div class="canvas-header">
+        <div id="canvas-page-tabs" class="canvas-page-tabs"></div>
+        <button type="button" id="add-page-btn" class="button" data-add-page>Add page</button>
+      </div>
+      <div id="canvas-container" class="canvas-columns-container">
+      </div>
+    </main>
+  
+    <aside class="builder-sidebar-right">
+      <div class="inspector-header">
+        <h3 id="inspector-title">Properties</h3>
+        <button type="button" class="button inspector-remove-widget-btn is-hidden" data-remove-widget>Remove widget</button>
+        <button type="button" class="button inspector-remove-column-btn is-hidden" data-remove-column>Remove column</button>
+        <button type="button" class="button inspector-remove-page-btn is-hidden" data-remove-page>Remove page</button>
+      </div>
+      <div id="inspector-content" class="inspector-body">
+        <div class="empty-state">Select an item on the canvas to edit its properties.</div>
+      </div>
+    </aside>
+  </div>

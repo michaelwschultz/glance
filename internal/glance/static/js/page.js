@@ -665,10 +665,10 @@ async function setupConfigEditors() {
 }
 
 async function setupConfigFormEditors() {
-    const elems = Array.from(document.getElementsByClassName("config-form-editor"));
+    const elems = Array.from(document.getElementsByClassName("config-visual-builder"));
     if (elems.length == 0) return;
 
-    const mod = await import('./config-form-editor.js');
+    const mod = await import('./config-visual-builder.js');
 
     for (let i = 0; i < elems.length; i++) {
         mod.default(elems[i]);

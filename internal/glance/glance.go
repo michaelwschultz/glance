@@ -20,7 +20,7 @@ import (
 var (
 	pageTemplate              = mustParseTemplate("page.html", "document.html", "footer.html")
 	pageContentTemplate       = mustParseTemplate("page-content.html")
-	configPageContentTemplate = mustParseTemplate("config-page-content.html")
+	configPageContentTemplate = mustParseTemplate("config-visual-builder.html")
 	manifestTemplate          = mustParseTemplate("manifest.json")
 )
 
